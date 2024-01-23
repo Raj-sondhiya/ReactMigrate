@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h3 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.custom-container {
+    width: 40%;
+    margin: 20px auto;
+    text-align: center;
+    background-image: url('https://img.freepik.com/free-vector/gorgeous-clouds-background-with-blue-sky-design_1017-25501.jpg');
+    background-size: cover;
+    height: 400px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+#cityName {
+    width: calc(100% - 10px);
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+#getWeather {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    background-color: crimson;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#outPut {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 40px;
+    color: white;
+}
+
+#outPut p {
+    text-align: left;
+    color: white;
+    font-size: 26px;
+    margin-top: 10px;
+}
