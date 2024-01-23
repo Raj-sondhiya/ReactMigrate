@@ -7,12 +7,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 const NewsApp = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [fromDate, setFromDate] = useState(new Date());
+    const [defaultDate, setDefaultDate] = useState(getDefaultFromDate());
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         // Fetch news on initial load
         fetchNews("India", getDefaultFromDate(), currentPage);
-    }, []); // Empty dependency array ensures the effect runs only once on mount
+        setDefaultDate(getDefaultFromDate());  // Set the default date
+    }, []);
 
     function getDefaultFromDate() {
         const currentDate = new Date();
@@ -111,7 +113,8 @@ const NewsApp = () => {
                                 Search
                             </button>
                             <DatePicker
-                                selected={fromDate}
+                                showIcon
+                                selected={defaultDate}
                                 onChange={handleDateChange}
                                 dateFormat="dd/MM/yyyy"
                                 className="form-control me-sm-2"
