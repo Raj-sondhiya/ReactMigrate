@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 const MyNavbar = () => {
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
-            {/* <Navbar.Brand href="/">Migrate</Navbar.Brand> */}
             <Navbar.Brand><Link to="/" className="nav-link">Migrate</Link></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">

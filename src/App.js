@@ -4,7 +4,7 @@ import MyNavbar from './MyNavbar';
 import Footer from './Footer';
 import Weather from './Internship-App/WeatherApp/Weather';
 import News from './Internship-App/NewsApp/News';
-import fullcalendar from './Internship-App/FullCalendar/Calendar';
+import FullCalendar from './Internship-App/FullCalendar/FullCalendar';
 import EmpManagement from './Internship-App/EmpManagement/EmpManagement';
 const App = () => {
   return (
@@ -19,7 +19,7 @@ const App = () => {
             <Route path="/" element={<Weather />} />
             <Route path="/weather" element={<Weather />} />
             <Route path="/News" element={<News />} />
-            <Route path="/fullcalendar" element={<Calendar />} />
+            <Route path="/fullcalendar" element={<FullCalendar />} />
             <Route path="/empmanagement" element={<EmpManagement />} />
           </Routes>
         </div>

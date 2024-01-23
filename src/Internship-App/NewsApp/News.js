@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './NewsApp.css';
 import DatePicker from 'react-datepicker';
+import Swal from 'sweetalert2';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const NewsApp = () => {
@@ -11,7 +12,6 @@ const NewsApp = () => {
     useEffect(() => {
         // Fetch news on initial load
         fetchNews("India", getDefaultFromDate(), currentPage);
-
     }, []); // Empty dependency array ensures the effect runs only once on mount
 
     function getDefaultFromDate() {
@@ -27,6 +27,23 @@ const NewsApp = () => {
         return `${year}-${month}-${day}`;
     }
 
+    const handleNextPage = () => {
+        const trimmedSearchQuery = searchQuery.trim() || "India";
+        setCurrentPage(currentPage + 1);
+        fetchNews(trimmedSearchQuery, fromDate, currentPage);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const trimmedSearchQuery = searchQuery.trim() || "India";
+        setCurrentPage(1);
+        fetchNews(trimmedSearchQuery, fromDate, currentPage);
+    };
+
+    const handleDateChange = (date) => {
+        setFromDate(date);
+    };
+
     function fetchNews(searchQuery, fromDate, page, sortBy) {
         const apiKey = 'b117751327744dbe99c23225706ce0a4'; // Replace with your actual API key
         const apiUrl = `https://newsapi.org/v2/everything?q=${searchQuery}&language=en&from=${formatDate(fromDate)}&sortBy=${sortBy || 'popularity'}&apiKey=${apiKey}&page=${page}`;
@@ -37,7 +54,13 @@ const NewsApp = () => {
                 const newsContainer = document.getElementById("newsContainer");
 
                 if (data.articles.length === 0) {
-                    alert(`No results found for "${searchQuery}" on date "${fromDate}"`);
+                    // alert(`No results found for "${searchQuery}" on date "${fromDate}"`);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: `No results found for "${searchQuery}" on date "${fromDate}"`,
+                        footer: '<a href="#">Why do I have this issue?</a>'
+                    });
                 } else {
                     const newsItems = data.articles.slice(0, 15);
                     newsContainer.innerHTML = "";
@@ -67,42 +90,15 @@ const NewsApp = () => {
             .catch(error => console.error("Error fetching news:", error));
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const searchQuery = searchQuery.trim() || "India";
-        setCurrentPage(1);
-        fetchNews(searchQuery, fromDate, currentPage);
-    };
-
-    const handleNextPage = () => {
-        const searchQuery = searchQuery.trim() || "India";
-        setCurrentPage(currentPage + 1);
-        fetchNews(searchQuery, fromDate, currentPage);
-    };
-
     return (
         <div>
-            <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+            <nav className="navbar navbar-expand-lg" data-bs-theme="dark">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="#">Navbar</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
                         aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarColor01">
-                        <ul className="navbar-nav me-auto">
-                            <li className="nav-item">
-                                <a className="nav-link active" href="#">Home
-                                    <span className="visually-hidden">(current)</span>
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">About</a>
-                            </li>
-                            <li className="nav-item dropdown">
-                                {/* ... (unchanged) */}
-                            </li>
-                        </ul>
                         <form className="d-flex" onSubmit={handleSubmit}>
                             <input
                                 className="form-control me-sm-2"
@@ -111,13 +107,19 @@ const NewsApp = () => {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
-                            <button className="btn btn-secondary  me-sm-2" type="submit">Search</button>
+                            <button className="btn btn-secondary me-sm-2" type="submit">
+                                Search
+                            </button>
                             <DatePicker
                                 selected={fromDate}
-                                onChange={(date) => setFromDate(date)}
+                                onChange={handleDateChange}
                                 dateFormat="dd/MM/yyyy"
                                 className="form-control me-sm-2"
                                 placeholderText="Select date"
+                                maxDate={new Date()} // Max date set to today
+                                minDate={new Date().setFullYear(new Date().getFullYear() - 6)} // Min date set to 6 years ago
+                                showYearDropdown
+                                showMonthDropdown
                             />
                         </form>
                     </div>

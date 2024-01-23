@@ -19,22 +19,22 @@ const CalendarComponent = () => {
             {
                 id: 'a',
                 title: 'Mr. Vaibhav Yadav',
-                start: '2024-01-20T12:34:56',
-                end: '2024-01-20T01:34:56',
+                start: '2024-01-23T12:34:56',
+                end: '2024-01-23T01:34:56',
                 resourceId: 'a',
             },
             {
                 id: 'b',
                 title: 'Mr. Ajay',
-                start: '2024-01-19T1:30:00',
-                end: '2024-01-19T02:00:00',
+                start: '2024-01-23T1:30:00',
+                end: '2024-01-23T02:00:00',
                 resourceId: 'b',
             },
             {
                 id: 'c',
                 title: 'Mr. Ramraj',
-                start: '2024-01-20T03:40:00',
-                end: '2024-01-20T05:30:56',
+                start: '2024-01-23T03:40:00',
+                end: '2024-01-23T05:30:56',
                 resourceId: 'c',
             },
         ];
