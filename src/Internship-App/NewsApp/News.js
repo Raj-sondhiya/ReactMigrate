@@ -6,15 +6,15 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const NewsApp = () => {
     const [searchQuery, setSearchQuery] = useState('');
-    const [fromDate, setFromDate] = useState(new Date());
+    const [fromDate, setFromDate] = useState(getDefaultFromDate());
     const [defaultDate, setDefaultDate] = useState(getDefaultFromDate());
     const [currentPage, setCurrentPage] = useState(1);
 
+
     useEffect(() => {
         // Fetch news on initial load
-        fetchNews("India", getDefaultFromDate(), currentPage);
-        setDefaultDate(getDefaultFromDate());  // Set the default date
-    }, []);
+        fetchNews("India", defaultDate, currentPage);
+    }, [defaultDate, currentPage]);
 
     function getDefaultFromDate() {
         const currentDate = new Date();
@@ -114,7 +114,7 @@ const NewsApp = () => {
                             </button>
                             <DatePicker
                                 showIcon
-                                selected={defaultDate}
+                                selected={fromDate}
                                 onChange={handleDateChange}
                                 dateFormat="dd/MM/yyyy"
                                 className="form-control me-sm-2"
@@ -123,6 +123,7 @@ const NewsApp = () => {
                                 minDate={new Date().setFullYear(new Date().getFullYear() - 6)} // Min date set to 6 years ago
                                 showYearDropdown
                                 showMonthDropdown
+                                startDate={defaultDate}  // Set the default date
                             />
                         </form>
                     </div>
